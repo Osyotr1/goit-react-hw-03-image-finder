@@ -1,4 +1,6 @@
-export const App = () => {
+import FetchProc from "./fetch/fetch";
+
+const App = () => {
   return (
     <div
       style={{
@@ -10,7 +12,10 @@ export const App = () => {
         color: '#010101'
       }}
     >
+      <FetchProc/>
       React homework template
     </div>
   );
 };
+
+export default App;
