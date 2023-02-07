@@ -14,6 +14,10 @@ class Searchbar extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
+        if(this.state.input.trim() === ''){
+          alert("Введіть пошуковий запит.");
+          return;
+        }
         this.props.onSubmit(this.state)
         this.setState({input: " "})
     };
