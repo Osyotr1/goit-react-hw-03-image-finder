@@ -1,21 +1,24 @@
-import FetchProc from "./fetch/fetch";
+import React, { Component } from "react";
+import Searchbar from "./Searchbar/Searchbar";
 
-const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      <FetchProc/>
-      React homework template
-    </div>
-  );
+class App extends Component {
+
+  state = {
+    value: " ",
+  };
+  
+  updateState = ({ input }) => {
+    this.setState({ value: input})
+  }
+
+  render() {
+    return (
+      <div>
+        ashot sosi
+        <Searchbar onSubmit={this.updateState}/>
+      </div>
+    )
+  };
 };
 
 export default App;
