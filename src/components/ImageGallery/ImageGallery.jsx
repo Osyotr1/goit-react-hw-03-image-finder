@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import style from "./ImageGallery.module.css";
 import imageAPI from "components/API/fetchImage";
-import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem";
-import Button from "../Button/Button";
+import ImageGalleryItem from "../ImageGalleryItem";
+import Button from "../Button";
 
 class ImageGallery extends Component {
     state = {
@@ -29,7 +30,7 @@ class ImageGallery extends Component {
         const images = this.state.hits
         const button = this.state.button
         return(
-            <>
+            <ul className={style.gallery}>
             {images.map(({ id, webformatURL, largeImageURL, tags }) => (
                 <ImageGalleryItem
                 key={id}
@@ -40,7 +41,7 @@ class ImageGallery extends Component {
             ))
             }
             { button && <div><Button onClick={this.onLoad}/></div> }
-            </>
+            </ul>
         )
      }
 };

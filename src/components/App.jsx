@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Searchbar from "./Searchbar/Searchbar";
-import ImageGallery from "./ImageGallery/ImageGallery";
+import Searchbar from "./Searchbar";
+import ImageGallery from "./ImageGallery";
 
 
 
@@ -22,7 +22,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        ashot sosi
         <Searchbar onSubmit={this.updateState}/>
         <ImageGallery fetchValue={this.state.value}/>
       </div>

@@ -1,7 +1,8 @@
+import style from "./Button.module.css";
 
 const Button = () => (
     <>
-    <button type="button">Load More</button>
+    <button type="button" className={style.Button}>Load More</button>
     </>
 );
 

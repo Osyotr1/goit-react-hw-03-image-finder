@@ -1,12 +1,9 @@
-
+import style from './ImageGalleryItem.module.css';
 
 const ImageGalleryItem = ({ id, webformatURL, largeImageURL, tags }) => (
     <>
-    <p>
-        Pictures fetched
-    </p>
-    <li key={id} class="gallery-item">
-        <img src={webformatURL} alt={tags} />
+    <li key={id} className={style.Item}>
+        <img className={style.ItemImage} src={webformatURL} alt={tags} />
     </li>
     </>
 );
