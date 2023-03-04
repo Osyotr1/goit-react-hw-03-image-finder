@@ -7,7 +7,7 @@ import ImageGallery from "./ImageGallery";
 class App extends Component {
 
   state = {
-    value: " "
+    value: ""
   };
   
   
