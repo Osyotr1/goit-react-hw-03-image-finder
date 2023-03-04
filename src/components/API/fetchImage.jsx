@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://pixabay.com/api/';
-const KEY_API = '28422237-ad1e99f44820901c4fb6da11b';
+const KEY_API = process.env.REACT_APP_FIREBASE_API_KEY;
 
 async function fetchImage(fetchValue, page) {
   return await axios.get(
