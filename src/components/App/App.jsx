@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Searchbar from "./Searchbar";
-import ImageGallery from "./ImageGallery";
+import Searchbar from "../Searchbar";
+import ImageGallery from "../ImageGallery";
+import style from './App.module.css';
 
 
 
@@ -21,7 +22,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className={style.container}>
         <Searchbar onSubmit={this.updateState}/>
         <ImageGallery fetchValue={this.state.value}/>
       </div>

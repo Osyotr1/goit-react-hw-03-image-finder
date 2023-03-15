@@ -1,7 +1,10 @@
 import { Component } from 'react';
-import * as basicLightbox from 'basiclightbox';
+import { createPortal } from 'react-dom';
+import style from './Modal.module.css';
 
- class Modal extends Component {
+const modalRoot = document.querySelector('#modal-root');
+
+class Modal extends Component {
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
   }
@@ -23,13 +26,16 @@ import * as basicLightbox from 'basiclightbox';
   };
 
   render() {
-    const instance = basicLightbox.create(
-    <img src="assets/images/image.png" width="800" height="600"/>
-  )
-
-    return instance.show() 
+    const src = this.props.src;
+    return createPortal(
+      <div className={style.Overlay} onClick={this.handleBackdropClick}>
+        <div className={style.Modal}>
+          <img src={src} alt="nema" />
+        </div>
+      </div>,
+      modalRoot,
+    );
   }
 }
 
-export default Modal
-
+export default Modal;

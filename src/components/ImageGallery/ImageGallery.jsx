@@ -4,7 +4,7 @@ import imageAPI from 'components/API/fetchImage';
 import ImageGalleryItem from '../ImageGalleryItem';
 import Button from '../Button';
 import Loader from '../Loader/Loader';
-import Modal from '../Modal/Modal';
+import Modal from '../Modal';
 
 class ImageGallery extends Component {
   state = {
@@ -17,18 +17,26 @@ class ImageGallery extends Component {
     largeImageURL: null,
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    const prevProp = prevProps.fetchValue;
+    const nextProp = this.props.fetchValue;
+    const page = this.state.page;
+
+    if (prevProp !== nextProp) {
+      // this.setState({ hits: []})
+      this.searchImg();
+    }
+  }
+
   onLoad = () => {
     this.setState(prevState => ({
       page: prevState.page + 1,
     }));
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const prevProp = prevProps.fetchValue;
+  searchImg = () => {
     const nextProp = this.props.fetchValue;
     const page = this.state.page;
-
-    if (prevProp !== nextProp || (prevState.page !== page && page !== 1)) {
       this.setState({ loader: true });
       setTimeout(() => {
         imageAPI
@@ -43,8 +51,7 @@ class ImageGallery extends Component {
           .catch(error => console.log(error))
           .finally(this.setState({ loader: false }));
       }, 1000);
-    }
-  }
+  };
 
   toggleModal = largeImageURL => {
     this.setState(({ showModal }) => ({
@@ -76,11 +83,7 @@ class ImageGallery extends Component {
             <Button onClick={this.onLoad} />
           </div>
         )}
-        {showModal && (
-          <Modal onClose={this.toggleModal}>
-            <img src={largeImageURL} alt={''} />
-          </Modal>
-        )}
+        {showModal && <Modal onClose={this.toggleModal} src={largeImageURL} />}
       </ul>
     );
   }

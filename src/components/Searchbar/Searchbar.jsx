@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import style from "./Searchbar.module.css";
+import { CgSearch } from "@react-icons/all-files/cg/CgSearch";
 
 class Searchbar extends Component {
 
@@ -30,6 +31,7 @@ class Searchbar extends Component {
             <header className={style.Searchbar}>
                 <form className={style.SearchForm} onSubmit={this.handleSubmit}>
                     <button type="submit" className={style.SearchBtn}>
+                        <CgSearch style={{ width: 20, height: 20 }}/>
                         <span className={style.SearchBtnLabel}>Search</span>
                     </button>
 
