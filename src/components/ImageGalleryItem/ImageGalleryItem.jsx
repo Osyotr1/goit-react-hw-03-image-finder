@@ -12,6 +12,7 @@ const ImageGalleryItem = ({ id, webformatURL, largeImageURL, tags, onClick }) =>
       <img className={style.ItemImage} src={webformatURL} alt={tags} />
     </li>
   </>
+  
 );
 
 export default ImageGalleryItem;

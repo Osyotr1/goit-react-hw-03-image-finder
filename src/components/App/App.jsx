@@ -1,6 +1,10 @@
 import React, { Component } from "react";
+import imageAPI from 'components/API/fetchImage';
 import Searchbar from "../Searchbar";
 import ImageGallery from "../ImageGallery";
+import Button from '../Button';
+import Loader from '../Loader/Loader';
+import Modal from '../Modal';
 import style from './App.module.css';
 
 
@@ -8,23 +12,89 @@ import style from './App.module.css';
 class App extends Component {
 
   state = {
-    value: ""
+    search: "",
+    hits: [],
+    totalHits: '',
+    button: false,
+    page: 1,
+    loader: false,
+    showModal: false,
+    largeImageURL: null,
+    newSearch: true,
+  };
+
+  componentDidUpdate(_, prevState) {
+    const prevSearch = prevState.search;
+    const nextSearch = this.state.search;
+    const page = this.state.page;
+
+    if (prevSearch !== nextSearch  || (prevState.page !== page && page !== 1)) {
+      this.searchImg();
+    } 
+  }
+
+  searchImg = () => {
+    const nextSearch = this.state.search;
+    const page = this.state.page;
+      this.setState({ loader: true });
+      setTimeout(() => {
+        imageAPI
+          .fetchImage(nextSearch, page)
+          .then(({ data }) => 
+            this.setState(prevState => ({
+            hits: [...prevState.hits, ...data.hits],
+            totalHits: data.totalHits,
+            button: true,
+          }))
+          )
+          .catch(error => console.log(error))
+          .finally(this.setState({ loader: false }));
+      }, 1000);
+  };
+
+  onLoad = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
   };
   
-  
-  updateState = ({ input }) => {
-    this.setState(prevState => {
-      if(prevState.value !== input){
-        return ({ value: input})
-      }
+  updateSearch = ({ input }) => {
+    if ( input === this.state.search ) {
+      return;
+    }
+    this.setState({ 
+      search: input,
+      hits: [],
+      button: false,
+      page: 1, 
     })
   }
 
+  toggleModal = largeImageURL => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+    this.setState({ largeImageURL: largeImageURL });
+  };
+
+
   render() {
+    const button = this.state.button;
+    const loader = this.state.loader;
+    const showModal = this.state.showModal;
+    const largeImageURL = this.state.largeImageURL;
+  
     return (
       <div className={style.container}>
-        <Searchbar onSubmit={this.updateState}/>
-        <ImageGallery fetchValue={this.state.value}/>
+        {loader && <Loader />}
+        <Searchbar onSubmit={this.updateSearch}/>
+        <ImageGallery images={this.state.hits} onClick={this.toggleModal}/>
+        {button && (
+          <div>
+            <Button onClick={this.onLoad} />
+          </div>
+        )}
+        {showModal && <Modal onClose={this.toggleModal} src={largeImageURL} />}
       </div>
     )
   };
