@@ -33,7 +33,7 @@ class Modal extends Component {
           <img src={src} alt="" />
         </div>
       </div>,
-      modalRoot,
+      modalRoot
     );
   }
 }
