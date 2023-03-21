@@ -1,17 +1,17 @@
-import { FidgetSpinner } from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 import style from './Loader.module.css';
 
 const Loader = () => (
   <div className={style.loader}>
-    <FidgetSpinner
-      visible={true}
-      height="80"
-      width="80"
-      ariaLabel="dna-loading"
+    <ThreeDots
+      height="160"
+      width="160"
+      radius="9"
+      color="#909998"
+      ariaLabel="three-dots-loading"
       wrapperStyle={{}}
-      wrapperClass="dna-wrapper"
-      ballColors={['#ff0000', '#00ff00', '#0000ff']}
-      backgroundColor="#F4442E"
+      wrapperClassName=""
+      visible={true}
     />
   </div>
 );

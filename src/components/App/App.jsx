@@ -21,6 +21,7 @@ class App extends Component {
     showModal: false,
     largeImageURL: null,
     newSearch: true,
+    error: null,
   };
 
   componentDidUpdate(_, prevState) {
@@ -40,14 +41,18 @@ class App extends Component {
       setTimeout(() => {
         imageAPI
           .fetchImage(nextSearch, page)
-          .then(({ data }) => 
+          .then(({ data }) => {
+            if (data.hits.length === 0) {
+              return alert('По вашому запиту не знайдено картинок');
+            }
             this.setState(prevState => ({
             hits: [...prevState.hits, ...data.hits],
             totalHits: data.totalHits,
             button: true,
           }))
+          }
           )
-          .catch(error => console.log(error))
+          .catch(error => this.setState({ error }))
           .finally(this.setState({ loader: false }));
       }, 1000);
   };
@@ -83,11 +88,13 @@ class App extends Component {
     const loader = this.state.loader;
     const showModal = this.state.showModal;
     const largeImageURL = this.state.largeImageURL;
+    const error = this.state.error;
   
     return (
       <div className={style.container}>
         {loader && <Loader />}
         <Searchbar onSubmit={this.updateSearch}/>
+        {error && alert(error.message)}
         <ImageGallery images={this.state.hits} onClick={this.toggleModal}/>
         {button && (
           <div>

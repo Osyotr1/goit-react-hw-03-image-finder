@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import style from "./Searchbar.module.css";
 import { CgSearch } from "@react-icons/all-files/cg/CgSearch";
 
@@ -50,3 +51,7 @@ class Searchbar extends Component {
     };
 }
 export default Searchbar;
+
+Searchbar.propTypes = {
+    onSubmit: PropTypes.func,
+  };
